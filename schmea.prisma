@@ -1,0 +1,16 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URI")
+}
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["prismaSchemaFolder"]
+}
+
+model auth_user{
+    id String @id @default(uuid())
+    deleted Boolean @default(false)
+    active Boolean @default(true)
+    passwrod String
+    
+}
