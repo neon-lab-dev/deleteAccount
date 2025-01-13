@@ -6,7 +6,7 @@ import mysql from "mysql2";
 const app = express();
 
 // cors
-app.use(cors({ origin: "https://server.mitraconsultancy.co.in/", credentials: true }));
+app.use(cors({ origin: "https://server.mitraconsultancy.co.in", credentials: true }));
 
 app.use(express.json());
 
@@ -99,8 +99,6 @@ app.delete('/delete-users', (req, res) => {
         });
     });
 });
-
-
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");

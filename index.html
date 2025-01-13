@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form with API Interaction</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+    .form-container {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-size: 1rem;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+  <script>
+    async function deleteData() {
+      try {
+        // Retrieve the form data
+        const name = document.getElementById('name').value;
+        const contactNo = document.getElementById('contactNo').value;
+
+        if (!contactNo) {
+          alert('Please fill out the contact number before deleting.');
+          return;
+        }
+
+
+        // Make a DELETE request to the backend API with the contact number as a query parameter
+        const response = await fetch(`http://localhost:3000/users?phone_number=${contactNo}`, {
+          method: 'DELETE',
+        });
+
+        // Parse the response
+        const result = await response.json();
+
+        console.log(result);
+        
+        // Display the response in a popup
+        alert('we got your delete account request it will be deleted shortly');
+      } catch (error) {
+        alert('User doesnot exist');
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="form-container">
+    <h1>Form with Delete Functionality</h1>
+    <form id="dataForm" onsubmit="event.preventDefault(); deleteData();">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name">
+
+      <label for="contactNo">Contact No:</label>
+      <input type="text" id="contactNo" name="contactNo" required>
+
+      <button type="button" onclick="deleteData()">Delete</button>
+    </form>
+  </div>
+</body>
+</html>
